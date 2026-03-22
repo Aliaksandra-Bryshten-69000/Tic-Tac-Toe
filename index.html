@@ -9,24 +9,37 @@
 
 <h1>Tic Tac Toe</h1>
 
-<div id="status">Tura: X</div>
-
-<div class="board">
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+<!-- ЛОГИН -->
+<div id="login">
+    <h2>Logowanie</h2>
+    <input type="text" id="playerX" placeholder="Gracz X">
+    <input type="text" id="playerO" placeholder="Gracz O">
+    <button onclick="startGame()">Start</button>
 </div>
 
-<button onclick="restartGame()">Restart</button>
+<!-- ИГРА -->
+<div id="game" style="display:none;">
 
-<h2>Wyniki:</h2>
-<div id="score"></div>
+    <div id="status">Tura: X</div>
+
+    <div class="board">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div>
+
+    <button onclick="restartGame()">Restart</button>
+
+    <h2>Historia wyników:</h2>
+    <div id="score"></div>
+
+</div>
 
 <script src="script.js"></script>
 
