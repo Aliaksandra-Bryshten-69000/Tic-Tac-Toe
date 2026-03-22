@@ -1,12 +1,12 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.getElementById("status");
-const scoreDiv = document.getElementById("score");
 
 let currentPlayer = "X";
 let board = ["", "", "", "", "", "", "", "", ""];
 let gameActive = true;
 
 let playerNames = { X: "", O: "" };
+let scores = { X: 0, O: 0 };
 
 const winConditions = [
     [0,1,2],[3,4,5],[6,7,8],
@@ -30,12 +30,14 @@ function startGame() {
     playerNames.X = x;
     playerNames.O = o;
 
-    localStorage.setItem("players", JSON.stringify(playerNames));
+    let savedScores = JSON.parse(localStorage.getItem("scores"));
+    if (savedScores) scores = savedScores;
 
     document.getElementById("login").style.display = "none";
     document.getElementById("game").style.display = "block";
 
-    showScores();
+    updateScoreUI();
+    statusText.textContent = "Tura: " + playerNames.X;
 }
 
 function makeMove(cell, index) {
@@ -55,9 +57,12 @@ function checkWinner() {
         let [a, b, c] = condition;
 
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            statusText.textContent = "Wygrywa: " + playerNames[board[a]];
             gameActive = false;
-            saveScore(board[a]);
+            scores[board[a]]++;
+            saveScores();
+
+            statusText.textContent = "Wygrywa: " + playerNames[board[a]];
+            updateScoreUI();
             return;
         }
     }
@@ -72,24 +77,22 @@ function restartGame() {
     board = ["", "", "", "", "", "", "", "", ""];
     gameActive = true;
     currentPlayer = "X";
-    statusText.textContent = "Tura: " + playerNames["X"];
+    statusText.textContent = "Tura: " + playerNames.X;
 
     cells.forEach(cell => cell.textContent = "");
 }
 
-function saveScore(winner) {
-    let scores = JSON.parse(localStorage.getItem("scores")) || [];
-
-    scores.push(
-        playerNames[winner] + " wygrał (" + new Date().toLocaleString() + ")"
-    );
-
+function saveScores() {
     localStorage.setItem("scores", JSON.stringify(scores));
-
-    showScores();
 }
 
-function showScores() {
-    let scores = JSON.parse(localStorage.getItem("scores")) || [];
-    scoreDiv.innerHTML = scores.join("<br>");
+function updateScoreUI() {
+    document.getElementById("scoreX").textContent = playerNames.X + ": " + scores.X;
+    document.getElementById("scoreO").textContent = playerNames.O + ": " + scores.O;
+}
+
+function resetScore() {
+    scores = { X: 0, O: 0 };
+    saveScores();
+    updateScoreUI();
 }
