@@ -7,18 +7,20 @@
 </head>
 <body>
 
+<div class="container">
+
 <h1>Tic Tac Toe</h1>
 
-<!-- ЛОГИН -->
-<div id="login">
-    <h2>Logowanie</h2>
+<!-- LOGIN -->
+<div id="login" class="card">
+    <h2>Gracze</h2>
     <input type="text" id="playerX" placeholder="Gracz X">
     <input type="text" id="playerO" placeholder="Gracz O">
     <button onclick="startGame()">Start</button>
 </div>
 
-<!-- ИГРА -->
-<div id="game" style="display:none;">
+<!-- GAME -->
+<div id="game" class="card" style="display:none;">
 
     <div id="status">Tura: X</div>
 
@@ -34,10 +36,18 @@
         <div class="cell"></div>
     </div>
 
-    <button onclick="restartGame()">Restart</button>
+    <div class="buttons">
+        <button onclick="restartGame()">Restart</button>
+        <button onclick="resetScore()">Reset wyników</button>
+    </div>
 
-    <h2>Historia wyników:</h2>
-    <div id="score"></div>
+    <div class="score-box">
+        <h3>Wyniki</h3>
+        <p id="scoreX">X: 0</p>
+        <p id="scoreO">O: 0</p>
+    </div>
+
+</div>
 
 </div>
 
